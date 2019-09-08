@@ -1,0 +1,53 @@
+
+
+`ifndef DEF_HEADDER
+    `include "def.h"
+    `define DEF_HEADDER
+`endif
+	
+module forwarding_unit(input  [`REG_W-1:0] rs1_id_ex,
+                       input  [`REG_W-1:0] rs2_id_ex,
+		       input  [`REG_W-1:0] rd_ex_mem,
+		       input               RegWrite_ex_mem,
+		       input  [`REG_W-1:0] rd_mem_wb,
+		       input               RegWrite_mem_wb,
+		       output [1:0]        forwardA,
+		       output [1:0]        forwardB);
+
+always_comb
+begin
+    if((RegWrite_ex_mem) && 
+       (rd_ex_mem != 1'b0) && 
+       (rd_ex_mem == rs1_id_ex))
+       forwardA = 2'b10;
+    else if ((RegWrite_mem_wb) && 
+	    (rd_mem_wb != 1'b0) &&
+	    !((RegWrite_ex_mem) && 
+	    (rd_ex_mem != 1'b0) && 
+	    (rd_ex_mem == rs1_id_ex)) &&
+	    (rd_mem_wb == rs1_id_ex))
+	forwardA = 2'b01;
+    else
+	forwardA = 2'b00;
+end
+
+// forwarding rs1(operand 2) 
+always_comb
+begin
+    if((RegWrite_ex_mem) && 
+      (rd_ex_mem != 1'b0) && 
+      (rd_ex_mem == rs2_id_ex))
+      forwardB = 2'b10;
+    else if ((RegWrite_mem_wb) && 
+	    (rd_mem_wb != 1'b0) && 
+	    !((RegWrite_ex_mem) && 
+            (rd_ex_mem != 1'b0) && 
+	    (rd_ex_mem == rs2_id_ex)) &&
+	    (rd_mem_wb == rs2_id_ex))
+	    forwardB = 2'b01;
+    else
+	forwardB = 2'b00;
+end
+
+
+endmodule
