@@ -38,17 +38,24 @@ always_comb
 begin
      casex ({ALUOp,Inst})
 	 7'b000xxxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
+
 	 7'b001x000 : ALUCtl = `ALU_SUB;  // sub (beq)
 	 7'b001x001 : ALUCtl = `ALU_BNE;  // bne
 	 7'b001x100 : ALUCtl = `ALU_BLT;  // blt
 	 7'b001x101 : ALUCtl = `ALU_BGE;  // bge
 	 7'b001x110 : ALUCtl = `ALU_BLTU; // bltu
 	 7'b001x111 : ALUCtl = `ALU_BGEU; // bgeu
+
 	 7'b01x0000 : ALUCtl = `ALU_ADD;  // add (add)
 	 7'b01x1000 : ALUCtl = `ALU_SUB;  // sub (sub)
+	 7'b01x0001 : ALUCtl = `ALU_SLL;  // sll
+	 7'b01x0010 : ALUCtl = `ALU_SLT;  // slt
+	 7'b01x0011 : ALUCtl = `ALU_SLTU; // sltu
+         7'b01x0100 : ALUCtl = `ALU_XOR;  // xor  
+	 7'b01x0101 : ALUCtl = `ALU_SRL;  // srl
+	 7'b01x1101 : ALUCtl = `ALU_SRA;  // sra
+	 7'b01x0110 : ALUCtl = `ALU_OR;   // or  
 	 7'b01x0111 : ALUCtl = `ALU_AND;  // and 
-	 7'b01x0110 : ALUCtl = `ALU_OR;  // or  
-         7'b01x0100 : ALUCtl = `ALU_XOR; // XOR  
          default   : ALUCtl = `ALU_SEL_W'b000000; // ERROR
      endcase
 end
