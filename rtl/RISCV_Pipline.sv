@@ -57,14 +57,13 @@ logic [`DATA_W-1:0]    Dmem_dataread;
 
 // logic [11:0]           imm;
 
-logic ALUSrc;
-logic MemtoReg;
-logic RegWrite;
-logic MemRead;
-logic MemWrite;
-logic Branch;
-logic ALUOp1;
-logic ALUOp0;
+logic                ALUSrc;
+logic                MemtoReg;
+logic                RegWrite;
+logic                MemRead;
+logic                MemWrite;
+logic                Branch;
+logic [`ALU_OP_W-1:0] ALUOp;
 
 logic Zero_flg;
 
@@ -80,7 +79,7 @@ logic                    RegWrite_id_ex;
 logic                    MemWrite_id_ex;
 logic                    MemRead_id_ex;
 logic                    Branch_id_ex;
-logic [1:0]              ALUOp_id_ex; 
+logic [`ALU_OP_W-1:0]    ALUOp_id_ex; 
 logic                    ALUSrc_id_ex;
 logic [`DATA_W-1:0]      Readdata1_id_ex;
 logic [`DATA_W-1:0]      Readdata2_id_ex;
@@ -218,8 +217,7 @@ assign MemWrite_mux_out = (mux_ctrl_write_sig) ? MemWrite:1'b0;
 //       MemRead
 //       MemWrite
 //       Branch
-//       ALUOp1
-//       ALUOp0
+//       ALUOp
 Control Control_0(.Instruction_opcode (opcode),
                   .ALUSrc             (ALUSrc),
 	          .MemtoReg           (MemtoReg),
@@ -227,8 +225,7 @@ Control Control_0(.Instruction_opcode (opcode),
 	          .MemRead            (MemRead),
 	          .MemWrite           (MemWrite),
 	          .Branch             (Branch),
-	          .ALUOp1             (ALUOp1),
-	          .ALUOp0             (ALUOp0));
+	          .ALUOp              (ALUOp));
 
 // #(parameter REG_W=5, DATA_W=64)
 //              clk
@@ -290,7 +287,7 @@ begin
 	MemWrite_id_ex    <= MemWrite_mux_out;
 	MemRead_id_ex     <= MemRead;
 	Branch_id_ex      <= Branch;
-	ALUOp_id_ex       <= {ALUOp1, ALUOp0};
+	ALUOp_id_ex       <= ALUOp;
 	ALUSrc_id_ex      <= ALUSrc;
 	Readdata1_id_ex   <= Readdata1;
 	Readdata2_id_ex   <= Readdata2;
@@ -462,14 +459,14 @@ assign Dest_data = (MemtoReg_mem_wb)? Dmem_dataread_mem_wb:ALUOut_mem_wb;
  *******************************************/
 assign pc_out = pc;
 
-assign Control_sigs = {ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp1, ALUOp0};
+assign Control_sigs = {ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp};
 
 //assign alu_out = ALUOut;
 assign alu_out = Dest_data;
 //assign alu_out = Dmem_dataread;
 
 // Ctrl signal
-//assign ctrl_sig = {ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp1, ALUOp0};
+//assign ctrl_sig = {ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp};
 
 //assign ctrl_sig = {RegWrite_mem_wb, MemWrite_dug, forwarding_flg, hazard_flg, forwardB_out_ex_mem[3:0]};
 

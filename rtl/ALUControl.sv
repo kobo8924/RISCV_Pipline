@@ -10,7 +10,7 @@
 // Name          I/O   SIZE   props
 // ================================================
 // Inst            I      4   {funct7Of1bit, funct3}
-// ALUOp           I      2
+// ALUOp           I      3
 // ALUCtl          O      6
 // ================================================
 // 
@@ -31,24 +31,24 @@
 
 
 module ALUControl(input  logic [3:0]            Inst,  // from {Instruction{30,14:12}}
-                  input  logic [1:0]            ALUOp, // from Control
+                  input  logic [`ALU_OP_W-1:0]  ALUOp, // from Control
 	          output logic [`ALU_SEL_W-1:0] ALUCtl); // To ALU
 
 always_comb
 begin
      casex ({ALUOp,Inst})
-	 6'b00xxxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
-	 6'b01x000 : ALUCtl = `ALU_SUB;  // sub (beq)
-	 6'b01x001 : ALUCtl = `ALU_BNE;  // bne
-	 6'b01x100 : ALUCtl = `ALU_BLT;  // blt
-	 6'b01x101 : ALUCtl = `ALU_BGE;  // bge
-	 6'b01x110 : ALUCtl = `ALU_BLTU; // bltu
-	 6'b01x111 : ALUCtl = `ALU_BGEU; // bgeu
-	 6'b1x0000 : ALUCtl = `ALU_ADD;  // add (add)
-	 6'b1x1000 : ALUCtl = `ALU_SUB;  // sub (sub)
-	 6'b1x0111 : ALUCtl = `ALU_AND;  // and 
-	 6'b1x0110 : ALUCtl = `ALU_OR;  // or  
-         6'b1x0100 : ALUCtl = `ALU_XOR; // XOR  
+	 7'b000xxxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
+	 7'b001x000 : ALUCtl = `ALU_SUB;  // sub (beq)
+	 7'b001x001 : ALUCtl = `ALU_BNE;  // bne
+	 7'b001x100 : ALUCtl = `ALU_BLT;  // blt
+	 7'b001x101 : ALUCtl = `ALU_BGE;  // bge
+	 7'b001x110 : ALUCtl = `ALU_BLTU; // bltu
+	 7'b001x111 : ALUCtl = `ALU_BGEU; // bgeu
+	 7'b01x0000 : ALUCtl = `ALU_ADD;  // add (add)
+	 7'b01x1000 : ALUCtl = `ALU_SUB;  // sub (sub)
+	 7'b01x0111 : ALUCtl = `ALU_AND;  // and 
+	 7'b01x0110 : ALUCtl = `ALU_OR;  // or  
+         7'b01x0100 : ALUCtl = `ALU_XOR; // XOR  
          default   : ALUCtl = `ALU_SEL_W'b000000; // ERROR
      endcase
 end

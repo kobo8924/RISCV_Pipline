@@ -30,6 +30,8 @@
 `define IMEM_ADDR_W 5     // Width of Instruction Memory Address
 `define IMEM_W 32         // Width of Instruction Memory Word
 
+`define ALU_OP_W 3
+
 `define REG_W 5           // Width of RF Address
 
 `define ALU_SEL_W 6       // Width of ALU_SEL

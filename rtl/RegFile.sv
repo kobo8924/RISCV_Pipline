@@ -35,18 +35,26 @@ module RegFile   (input                clk,
 	          output [`DATA_W-1:0] Readdata2);    // Read Data 2
 
 
-logic [31:0] reg_file [0:31];
+logic [31:0] reg_file [0:31] ;
 
+/*
 integer i;
 initial
 begin
     for(i = 0; i < 32; i = i + 1) 
-	reg_file[i] = `DATA_W'd0;
+	reg_file[i] = 0;
 end
+*/
 
-always_ff @(negedge clk)
+always_ff @(negedge clk or posedge reset)
 begin
-    if((RegWrite) && (Writeregister != 1'b0))
+    if(reset)
+    begin
+	integer i;
+	for(i = 0; i < 32; i = i + 1) 
+	    reg_file[i] = 0;
+    end
+    else if((RegWrite) && (Writeregister != 1'b0))
 	reg_file[Writeregister] <= Writedata;
 end
 

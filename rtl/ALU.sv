@@ -20,10 +20,10 @@
     `define DEF_HEADDER
 `endif
 
-module ALU (input  logic [`ALU_SEL_W-1:0] ALUctl, 
-            input  logic [`DATA_W-1:0]    A, B, 
-            output logic [`DATA_W-1:0]    ALUOut, 
-            output                        Zero);
+module ALU (input  logic        [`ALU_SEL_W-1:0] ALUctl, 
+            input  logic signed [`DATA_W-1:0]    A, B, 
+            output logic        [`DATA_W-1:0]    ALUOut, 
+            output                               Zero);
 
 //logic [`DATA_W-1:0] OUTsig;
 
@@ -34,14 +34,18 @@ assign Zero = (ALUOut == 0);
 always_comb
 begin
     case(ALUctl)
-	`ALU_AND  : ALUOut <= A & B;
-	`ALU_OR   : ALUOut <= A | B;
-	`ALU_XOR  : ALUOut <= A ^ B;
-	`ALU_ADD  : ALUOut <= A + B;
-	`ALU_SUB  : ALUOut <= A - B;
-	`ALU_BNE  : ALUOut <= !(A != B);
-	`ALU_BLT  : ALUOut <= !(A < B);
-	`ALU_BGE  : ALUOut <= !(A >= B);
+	`ALU_AND   : ALUOut <= A & B;
+	`ALU_OR    : ALUOut <= A | B;
+	`ALU_XOR   : ALUOut <= A ^ B;
+	`ALU_ADD   : ALUOut <= A + B;
+	`ALU_SUB   : ALUOut <= A - B;
+	
+	/* Branch Instruction */
+	`ALU_BNE   : ALUOut <= !(A != B);
+	`ALU_BLT   : ALUOut <= !(A < B);
+	`ALU_BGE   : ALUOut <= !(A >= B);
+	`ALU_BLTU  : ALUOut <= $unsigned(!(A < B));
+	`ALU_BGEU  : ALUOut <= $unsigned(!(A >= B));
 
 	// `ALU_BLTU  : ALUOut <= !(A < B);
 	// `ALU_BGEU  : ALUOut <= !(A >= B);

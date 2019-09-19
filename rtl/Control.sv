@@ -14,8 +14,7 @@
 // MemRead                O     1
 // MemWrite               O     1
 // Branch                 O     1
-// ALUOp1                 O     1
-// ALUOp0                 O     1
+// ALUOp                  O     3
 // ================================================
 // 
 //
@@ -32,25 +31,24 @@ module Control (input  logic [`OPCODE_W-1:0] Instruction_opcode,
 	        output logic                 MemRead,
 	        output logic                 MemWrite,
 	        output logic                 Branch,
-	        output logic                 ALUOp1,
-	        output logic                 ALUOp0);
+	        output logic [`ALU_OP_W-1:0] ALUOp);
 
-logic [7:0] Control_sigs;
+logic [8:0] Control_sigs;
 
 // Decode instruction
 always_comb
 begin
     casex(Instruction_opcode)
-     `OPCODE_W'b0110011 : Control_sigs = 8'b00100010; // R-format
-     `OPCODE_W'b0010011 : Control_sigs = 8'b10100011; // Imm
-     `OPCODE_W'b0000011 : Control_sigs = 8'b11110000; // ld
-     `OPCODE_W'b0100011 : Control_sigs = 8'b1x001000; // sd
-     `OPCODE_W'b1100011 : Control_sigs = 8'b0x000101; // beq
-                default : Control_sigs = 8'b00000000; // Error
+     `OPCODE_W'b0110011 : Control_sigs = 9'b001000010; // R-format
+     `OPCODE_W'b0010011 : Control_sigs = 9'b101000011; // Imm
+     `OPCODE_W'b0000011 : Control_sigs = 9'b111100000; // ld
+     `OPCODE_W'b0100011 : Control_sigs = 9'b1x0010000; // sd
+     `OPCODE_W'b1100011 : Control_sigs = 9'b0x0001001; // beq
+                default : Control_sigs = 9'b000000000; // Error
     endcase
 end
 
 
-assign {ALUSrc,MemtoReg,RegWrite,MemRead,MemWrite,Branch,ALUOp1,ALUOp0} = Control_sigs;
+assign {ALUSrc,MemtoReg,RegWrite,MemRead,MemWrite,Branch,ALUOp} = Control_sigs;
 
 endmodule
