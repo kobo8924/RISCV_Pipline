@@ -42,7 +42,7 @@ logic [`OPCODE_W-1:0] opcode;
 logic [`REG_W-1:0]    rd;
 logic [`REG_W-1:0]    rs1;
 logic [`REG_W-1:0]    rs2;
-logic [3:0]           alu_ctrl_in;
+logic [4:0]           alu_ctrl_in;
 
 logic [`DATA_W-1:0]    Readdata1;
 logic [`DATA_W-1:0]    Readdata2;
@@ -84,7 +84,7 @@ logic                    ALUSrc_id_ex;
 logic [`DATA_W-1:0]      Readdata1_id_ex;
 logic [`DATA_W-1:0]      Readdata2_id_ex;
 logic [`DATA_W-1:0]      Immgen_id_ex;
-logic [3:0]              alu_ctrl_in_id_ex ;
+logic [4:0]              alu_ctrl_in_id_ex ;
 logic [`REG_W-1:0]       rd_id_ex;
 logic                    MemtoReg_id_ex;
 logic [`REG_W-1:0]       rs1_id_ex;
@@ -257,7 +257,9 @@ ImmGen ImmGen_0 (.Inst   (instruction_if_id),
 
 
 // funct7[30] and funct3.
-assign alu_ctrl_in = {instruction_if_id[30],instruction_if_id[14:12]};
+assign alu_ctrl_in = {instruction_if_id[30],     // funct7[5]
+                      instruction_if_id[25],     // funct7[0]
+                      instruction_if_id[14:12]}; // funct3
 
 // ID/EX Pipline Register
 always_ff @(posedge clk, posedge reset)

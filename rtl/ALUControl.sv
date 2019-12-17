@@ -30,32 +30,32 @@
 
 
 
-module ALUControl(input  logic [3:0]            Inst,  // from {Instruction{30,14:12}}
+module ALUControl(input  logic [4:0]            Inst,  // from {Instruction{30, 25, 14:12}}
                   input  logic [`ALU_OP_W-1:0]  ALUOp, // from Control
 	          output logic [`ALU_SEL_W-1:0] ALUCtl); // To ALU
 
 always_comb
 begin
      casex ({ALUOp,Inst})
-	 7'b000xxxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
+	 7'b000x0xxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
 
-	 7'b001x000 : ALUCtl = `ALU_SUB;  // sub (beq)
-	 7'b001x001 : ALUCtl = `ALU_BNE;  // bne
-	 7'b001x100 : ALUCtl = `ALU_BLT;  // blt
-	 7'b001x101 : ALUCtl = `ALU_BGE;  // bge
-	 7'b001x110 : ALUCtl = `ALU_BLTU; // bltu
-	 7'b001x111 : ALUCtl = `ALU_BGEU; // bgeu
+	 7'b001x0000 : ALUCtl = `ALU_SUB;  // sub (beq)
+	 7'b001x0001 : ALUCtl = `ALU_BNE;  // bne
+	 7'b001x0100 : ALUCtl = `ALU_BLT;  // blt
+	 7'b001x0101 : ALUCtl = `ALU_BGE;  // bge
+	 7'b001x0110 : ALUCtl = `ALU_BLTU; // bltu
+	 7'b001x0111 : ALUCtl = `ALU_BGEU; // bgeu
 
-	 7'b01x0000 : ALUCtl = `ALU_ADD;  // add (add)
-	 7'b01x1000 : ALUCtl = `ALU_SUB;  // sub (sub)
-	 7'b01x0001 : ALUCtl = `ALU_SLL;  // sll
-	 7'b01x0010 : ALUCtl = `ALU_SLT;  // slt
-	 7'b01x0011 : ALUCtl = `ALU_SLTU; // sltu
-         7'b01x0100 : ALUCtl = `ALU_XOR;  // xor  
-	 7'b01x0101 : ALUCtl = `ALU_SRL;  // srl
-	 7'b01x1101 : ALUCtl = `ALU_SRA;  // sra
-	 7'b01x0110 : ALUCtl = `ALU_OR;   // or  
-	 7'b01x0111 : ALUCtl = `ALU_AND;  // and 
+	 7'b01x00000 : ALUCtl = `ALU_ADD;  // add (add)
+	 7'b01x10000 : ALUCtl = `ALU_SUB;  // sub (sub)
+	 7'b01x00001 : ALUCtl = `ALU_SLL;  // sll
+	 7'b01x00010 : ALUCtl = `ALU_SLT;  // slt
+	 7'b01x00011 : ALUCtl = `ALU_SLTU; // sltu
+         7'b01x00100 : ALUCtl = `ALU_XOR;  // xor  
+	 7'b01x00101 : ALUCtl = `ALU_SRL;  // srl
+	 7'b01x10101 : ALUCtl = `ALU_SRA;  // sra
+	 7'b01x00110 : ALUCtl = `ALU_OR;   // or  
+	 7'b01x00111 : ALUCtl = `ALU_AND;  // and 
          default    : ALUCtl = `ALU_SEL_W'b000000; // ERROR
      endcase
 end
