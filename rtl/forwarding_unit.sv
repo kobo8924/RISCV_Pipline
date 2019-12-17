@@ -11,13 +11,14 @@ module forwarding_unit(input  [`REG_W-1:0] rs1_id_ex,
 		       input               RegWrite_ex_mem,
 		       input  [`REG_W-1:0] rd_mem_wb,
 		       input               RegWrite_mem_wb,
-		       output              forwarding_flg,
+		       output              forwarding_flg,   // Debug signal
 		       output [1:0]        forwardA,
 		       output [1:0]        forwardB);
 
 logic forwarding_flg_a;
 logic forwarding_flg_b;
 
+/* Debug signal */
 assign forwarding_flg = forwarding_flg_a | forwarding_flg_b;
 
 always_comb

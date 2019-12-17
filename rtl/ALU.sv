@@ -41,16 +41,18 @@ begin
 	`ALU_SUB   : ALUOut <= A - B;
 	
 	/* Branch Instruction */
-	`ALU_BNE   : ALUOut <= !(A != B);
-	`ALU_BLT   : ALUOut <= !(A < B);
-	`ALU_BGE   : ALUOut <= !(A >= B);
-	`ALU_BLTU  : ALUOut <= $unsigned(!(A < B));
-	`ALU_BGEU  : ALUOut <= $unsigned(!(A >= B));
+	`ALU_BNE   : ALUOut <= ~(A != B);
+	`ALU_BLT   : ALUOut <= ~(A < B);
+	`ALU_BGE   : ALUOut <= ~(A >= B);
+	`ALU_BLTU  : ALUOut <= $unsigned(~(A < B));
+	`ALU_BGEU  : ALUOut <= $unsigned(~(A >= B));
 
-	// `ALU_BLTU  : ALUOut <= !(A < B);
-	// `ALU_BGEU  : ALUOut <= !(A >= B);
-	//`ALU_CMP : ALUOut <= (A < B)? 1:0;
-	//`ALU_NOR : ALUOut <= ~(A | B);
+	`ALU_SLL   : ALUOut <= A << B[4:0];
+	`ALU_SLT   : ALUOut <= (A < B);
+	`ALU_SLTU  : ALUOut <= $unsigned(A < B);
+	`ALU_SRL   : ALUOut <= A[4:0] >> B;
+	`ALU_SRA   : ALUOut <= A[4:0] >>> B;
+
 	default  : ALUOut <= 0;
     endcase
 end

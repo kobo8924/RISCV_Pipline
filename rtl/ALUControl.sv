@@ -56,7 +56,7 @@ begin
 	 7'b01x1101 : ALUCtl = `ALU_SRA;  // sra
 	 7'b01x0110 : ALUCtl = `ALU_OR;   // or  
 	 7'b01x0111 : ALUCtl = `ALU_AND;  // and 
-         default   : ALUCtl = `ALU_SEL_W'b000000; // ERROR
+         default    : ALUCtl = `ALU_SEL_W'b000000; // ERROR
      endcase
 end
 

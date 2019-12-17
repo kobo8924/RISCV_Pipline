@@ -256,7 +256,7 @@ ImmGen ImmGen_0 (.Inst   (instruction_if_id),
 
 
 
-// funct7 of 1bit and funct3.
+// funct7[30] and funct3.
 assign alu_ctrl_in = {instruction_if_id[30],instruction_if_id[14:12]};
 
 // ID/EX Pipline Register
