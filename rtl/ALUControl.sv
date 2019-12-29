@@ -9,9 +9,9 @@
 // ================================================
 // Name          I/O   SIZE   props
 // ================================================
-// Inst            I      4   {funct7Of1bit, funct3}
+// Inst            I      5   {funct7[5], funct7[0] ,funct3}
 // ALUOp           I      3
-// ALUCtl          O      6
+// ALUCtl          O      6   (To ALU_SEL)
 // ================================================
 // 
 //
@@ -37,25 +37,34 @@ module ALUControl(input  logic [4:0]            Inst,  // from {Instruction{30, 
 always_comb
 begin
      casex ({ALUOp,Inst})
-	 7'b000x0xxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
+	 8'b000x0xxx : ALUCtl = `ALU_ADD;  // add (ld, sd)
 
-	 7'b001x0000 : ALUCtl = `ALU_SUB;  // sub (beq)
-	 7'b001x0001 : ALUCtl = `ALU_BNE;  // bne
-	 7'b001x0100 : ALUCtl = `ALU_BLT;  // blt
-	 7'b001x0101 : ALUCtl = `ALU_BGE;  // bge
-	 7'b001x0110 : ALUCtl = `ALU_BLTU; // bltu
-	 7'b001x0111 : ALUCtl = `ALU_BGEU; // bgeu
+	 8'b001x0000 : ALUCtl = `ALU_SUB;  // sub (beq)
+	 8'b001x0001 : ALUCtl = `ALU_BNE;  // bne
+	 8'b001x0100 : ALUCtl = `ALU_BLT;  // blt
+	 8'b001x0101 : ALUCtl = `ALU_BGE;  // bge
+	 8'b001x0110 : ALUCtl = `ALU_BLTU; // bltu
+	 8'b001x0111 : ALUCtl = `ALU_BGEU; // bgeu
 
-	 7'b01x00000 : ALUCtl = `ALU_ADD;  // add (add)
-	 7'b01x10000 : ALUCtl = `ALU_SUB;  // sub (sub)
-	 7'b01x00001 : ALUCtl = `ALU_SLL;  // sll
-	 7'b01x00010 : ALUCtl = `ALU_SLT;  // slt
-	 7'b01x00011 : ALUCtl = `ALU_SLTU; // sltu
-         7'b01x00100 : ALUCtl = `ALU_XOR;  // xor  
-	 7'b01x00101 : ALUCtl = `ALU_SRL;  // srl
-	 7'b01x10101 : ALUCtl = `ALU_SRA;  // sra
-	 7'b01x00110 : ALUCtl = `ALU_OR;   // or  
-	 7'b01x00111 : ALUCtl = `ALU_AND;  // and 
+	 8'b01x00000 : ALUCtl = `ALU_ADD;  // add (add)
+	 8'b01x10000 : ALUCtl = `ALU_SUB;  // sub (sub)
+	 8'b01x00001 : ALUCtl = `ALU_SLL;  // sll
+	 8'b01x00010 : ALUCtl = `ALU_SLT;  // slt
+	 8'b01x00011 : ALUCtl = `ALU_SLTU; // sltu
+         8'b01x00100 : ALUCtl = `ALU_XOR;  // xor  
+	 8'b01x00101 : ALUCtl = `ALU_SRL;  // srl
+	 8'b01x10101 : ALUCtl = `ALU_SRA;  // sra
+	 8'b01x00110 : ALUCtl = `ALU_OR;   // or  
+	 8'b01x00111 : ALUCtl = `ALU_AND;  // and 
+
+	 8'b01x01000 : ALUCtl = `ALU_MUL;  
+	 8'b01x01001 : ALUCtl = `ALU_MULH;  
+	 8'b01x01010 : ALUCtl = `ALU_MULHSU;  
+	 8'b01x01011 : ALUCtl = `ALU_MULHU;  
+	 8'b01x01100 : ALUCtl = `ALU_DIV;
+	 8'b01x01101 : ALUCtl = `ALU_DIVU;
+	 8'b01x01110 : ALUCtl = `ALU_REM;
+	 8'b01x01111 : ALUCtl = `ALU_REMU;
          default    : ALUCtl = `ALU_SEL_W'b000000; // ERROR
      endcase
 end

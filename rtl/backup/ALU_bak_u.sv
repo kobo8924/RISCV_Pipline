@@ -34,12 +34,14 @@ logic [`DATA_W*2-1:0] ALUOut_tmp;
 assign Zero = (ALUOut_tmp == 64'd0);
 
 
-//assign ALUOut = ALUOut_tmp[`DATA_W-1:0];
+assign ALUOut = ALUOut_tmp[`DATA_W-1:0];
 
+/*
 assign ALUOut = (ALUctl == `ALU_MUL)    ? ALUOut_tmp[31:0]:
                 (ALUctl == `ALU_MULH)   ? ALUOut_tmp[63:32]:
                 (ALUctl == `ALU_MULHSU) ? ALUOut_tmp[63:32]:
 		(ALUctl == `ALU_MULHU)  ? ALUOut_tmp[63:32]:ALUOut_tmp[31:0];
+*/
 
 always_comb
 begin

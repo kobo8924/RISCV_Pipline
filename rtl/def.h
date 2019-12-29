@@ -18,7 +18,7 @@
 
 `define INST_W 32
 
-`define DATA_W 64
+`define DATA_W 32
 
 `define FUNCT_3_W 3
 

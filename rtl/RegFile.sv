@@ -10,9 +10,9 @@
 // Readregister2     I      5  
 // Writeregister     I      5
 // RegWrite          I      1   WriteEnable
-// Writedata         I     64
-// REaddata1         O     64
-// REaddata2         O     64
+// Writedata         I     32
+// REaddata1         O     32
+// REaddata2         O     32
 // ================================================
 // 
 //

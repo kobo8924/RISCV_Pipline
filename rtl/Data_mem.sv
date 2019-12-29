@@ -45,9 +45,9 @@ module Data_mem (
 
 	input	[7:0]  address;
 	input	  clock;
-	input	[63:0]  data;
+	input	[31:0]  data;
 	input	  wren;
-	output	[63:0]  q;
+	output	[31:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -56,8 +56,8 @@ module Data_mem (
 // synopsys translate_on
 `endif
 
-	wire [63:0] sub_wire0;
-	wire [63:0] q = sub_wire0[63:0];
+	wire [31:0] sub_wire0;
+	wire [31:0] q = sub_wire0[31:0];
 
 	altsyncram	altsyncram_component (
 				.address_a (address),
@@ -95,9 +95,10 @@ module Data_mem (
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "UNREGISTERED",
 		altsyncram_component.power_up_uninitialized = "FALSE",
+		altsyncram_component.ram_block_type = "M9K",
 		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_NO_NBE_READ",
 		altsyncram_component.widthad_a = 8,
-		altsyncram_component.width_a = 64,
+		altsyncram_component.width_a = 32,
 		altsyncram_component.width_byteena_a = 1;
 
 
@@ -127,7 +128,7 @@ endmodule
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING "RISCV_Pipline_dmem.mif"
 // Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "256"
-// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "3"
 // Retrieval info: PRIVATE: RegAddr NUMERIC "1"
 // Retrieval info: PRIVATE: RegData NUMERIC "1"
@@ -137,7 +138,7 @@ endmodule
 // Retrieval info: PRIVATE: UseDQRAM NUMERIC "1"
 // Retrieval info: PRIVATE: WRCONTROL_ACLR_A NUMERIC "0"
 // Retrieval info: PRIVATE: WidthAddr NUMERIC "8"
-// Retrieval info: PRIVATE: WidthData NUMERIC "64"
+// Retrieval info: PRIVATE: WidthData NUMERIC "32"
 // Retrieval info: PRIVATE: rden NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
@@ -151,24 +152,25 @@ endmodule
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
+// Retrieval info: CONSTANT: RAM_BLOCK_TYPE STRING "M9K"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_NO_NBE_READ"
 // Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "8"
-// Retrieval info: CONSTANT: WIDTH_A NUMERIC "64"
+// Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: USED_PORT: address 0 0 8 0 INPUT NODEFVAL "address[7..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
-// Retrieval info: USED_PORT: data 0 0 64 0 INPUT NODEFVAL "data[63..0]"
-// Retrieval info: USED_PORT: q 0 0 64 0 OUTPUT NODEFVAL "q[63..0]"
+// Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
+// Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
 // Retrieval info: USED_PORT: wren 0 0 0 0 INPUT NODEFVAL "wren"
 // Retrieval info: CONNECT: @address_a 0 0 8 0 address 0 0 8 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
-// Retrieval info: CONNECT: @data_a 0 0 64 0 data 0 0 64 0
+// Retrieval info: CONNECT: @data_a 0 0 32 0 data 0 0 32 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
-// Retrieval info: CONNECT: q 0 0 64 0 @q_a 0 0 64 0
+// Retrieval info: CONNECT: q 0 0 32 0 @q_a 0 0 32 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem.inc FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem.bsf FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem_bb.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL Data_mem_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
