@@ -49,7 +49,17 @@ begin
 	`ALU_XOR   : ALUOut_tmp <= {`DATA_W'd0, (A ^ B)};
 	`ALU_ADD   : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
 	`ALU_SUB   : ALUOut_tmp <= {`DATA_W'd0, (A - B)};
+
+	`ALU_LB    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_LH    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_LW    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_LBU   : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_LHU   : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
 	
+	`ALU_SB    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_SH    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+	`ALU_SW    : ALUOut_tmp <= {`DATA_W'd0, (A + B)};
+
 	/* Branch Instruction */
 	/* In this processor, an inverter is added because the zero flag is
 	 * a branch condition. */

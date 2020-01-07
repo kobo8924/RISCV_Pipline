@@ -36,17 +36,13 @@
 
 `define ALU_SEL_W 6       // Width of ALU_SEL
 
-// ALU OPcode
+// RV32I Base Instruction Set
 `define ALU_AND  `ALU_SEL_W'b000000
 `define ALU_OR   `ALU_SEL_W'b000001
 `define ALU_ADD  `ALU_SEL_W'b000010
 `define ALU_SUB  `ALU_SEL_W'b000110
 `define ALU_XOR  `ALU_SEL_W'b000111
 
-// `define ALU_LD_SD  `ALU_SEL_W'b000010
-
-
-// `define ALU_BEQ  `ALU_SEL_W'b000110
 `define ALU_BNE  `ALU_SEL_W'b001000
 `define ALU_BLT  `ALU_SEL_W'b001001
 `define ALU_BGE  `ALU_SEL_W'b001010
@@ -59,24 +55,27 @@
 `define ALU_SRL  `ALU_SEL_W'b010000
 `define ALU_SRA  `ALU_SEL_W'b010001
 
+// load
 `define ALU_LB   `ALU_SEL_W'b010010
 `define ALU_LH   `ALU_SEL_W'b010011
 `define ALU_LW   `ALU_SEL_W'b010100
 `define ALU_LBU  `ALU_SEL_W'b010101
 `define ALU_LHU  `ALU_SEL_W'b010110
 
-//`define ALU_CMP `ALU_SEL_W'b000111
-//`define ALU_NOR `ALU_SEL_W'b001010
+// store
+`define ALU_SB   `ALU_SEL_W'b010111
+`define ALU_SH   `ALU_SEL_W'b011000
+`define ALU_SW   `ALU_SEL_W'b011001
 
 // RV32M Standard Extension
-`define ALU_MUL    `ALU_SEL_W'b010111
-`define ALU_MULH   `ALU_SEL_W'b011000
-`define ALU_MULHSU `ALU_SEL_W'b011001
-`define ALU_MULHU  `ALU_SEL_W'b011010
-`define ALU_DIV    `ALU_SEL_W'b011011
-`define ALU_DIVU   `ALU_SEL_W'b011100
-`define ALU_REM    `ALU_SEL_W'b011101
-`define ALU_REMU   `ALU_SEL_W'b011110
+`define ALU_MUL    `ALU_SEL_W'b011010
+`define ALU_MULH   `ALU_SEL_W'b011011
+`define ALU_MULHSU `ALU_SEL_W'b011100
+`define ALU_MULHU  `ALU_SEL_W'b011101
+`define ALU_DIV    `ALU_SEL_W'b011110
+`define ALU_DIVU   `ALU_SEL_W'b011111
+`define ALU_REM    `ALU_SEL_W'b100000
+`define ALU_REMU   `ALU_SEL_W'b100001
 
 //============================================
 // test_code parameter for instruction memory.

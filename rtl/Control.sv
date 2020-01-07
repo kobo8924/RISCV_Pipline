@@ -42,7 +42,7 @@ begin
      `OPCODE_W'b0110011 : Control_sigs = 9'b001000010; // R-format
      `OPCODE_W'b0010011 : Control_sigs = 9'b101000011; // Imm
      `OPCODE_W'b0000011 : Control_sigs = 9'b111100000; // ld
-     `OPCODE_W'b0100011 : Control_sigs = 9'b1x0010000; // sd
+     `OPCODE_W'b0100011 : Control_sigs = 9'b1x0010100; // sd
      `OPCODE_W'b1100011 : Control_sigs = 9'b0x0001001; // beq
                 default : Control_sigs = 9'b000000000; // Error
     endcase
